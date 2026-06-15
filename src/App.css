@@ -2,8 +2,6 @@
   height: 100vh;
   background-image: url("https://source.unsplash.com/1600x900/?plants");
   background-size: cover;
-  background-position: center;
-  color: white;
   text-align: center;
-  padding-top: 100px;
+  color: white;
 }
