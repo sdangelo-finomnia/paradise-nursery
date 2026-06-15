@@ -16,14 +16,12 @@ export default function CartItem() {
       {items.map(item => (
         <div key={item.id} style={{ border: "1px solid gray", margin: "10px", padding: "10px" }}>
           
-          {/* ✅ immagine */}
-          {item.image}
+          <img src={item.image} alt={item.name} />
 
           <h2>{item.name}</h2>
           <p>Price: ${item.price}</p>
           <p>Quantity: {item.quantity}</p>
 
-          {/* ✅ bottoni quantità */}
           <button onClick={() => dispatch(updateQuantity({ id: item.id, amount: 1 }))}>
             +
           </button>
@@ -36,16 +34,13 @@ export default function CartItem() {
             Remove
           </button>
 
-          {/* ✅ subtotale */}
           <p>Subtotal: ${item.price * item.quantity}</p>
         </div>
       ))}
 
-      {/* ✅ totali */}
       <h2>Total Items: {totalItems}</h2>
       <h2>Total Price: ${totalPrice}</h2>
 
-      {/* ✅ bottoni finali */}
       <button onClick={() => alert("Coming Soon")}>
         Checkout
       </button>
@@ -56,3 +51,4 @@ export default function CartItem() {
     </div>
   );
 }
+``
