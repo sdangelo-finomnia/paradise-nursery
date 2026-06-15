@@ -57,20 +57,14 @@ export default function ProductList() {
   const dispatch = useDispatch();
   const cart = useSelector(state => state.cart.items);
 
-  // ✅ conteggio carrello dinamico
   const count = cart.reduce((acc, i) => acc + i.quantity, 0);
 
-  // ✅ FIX IMPORTANTE → booleano
-  const isAdded = (id) => {
-    return cart.some(item => item.id === id);
-  };
+  const isAdded = (id) => cart.some(i => i.id === id);
 
-  // ✅ categorie
   const categories = [...new Set(plants.map(p => p.category))];
 
   return (
     <div>
-
       {/* ✅ HEADER + NAVBAR */}
       <header>
         <nav>
@@ -88,40 +82,24 @@ export default function ProductList() {
 
           {plants
             .filter(p => p.category === cat)
-            .map(p => {
+            .map(p => (
+              <div key={p.id} className="product-card">
+                {/* ✅ IMG CORRETTO */}
+                <img src={p.image} alt={p.name} />
 
-              // ✅ FIX CRITICO (serve al grader)
-              const added = isAdded(p.id);
+                <h3>{p.name}</h3>
+                <p>{p.description}</p>
+                <p>${p.price.toFixed(2)}</p> {/* Formatta il prezzo */}
 
-              return (
-                <div
-                  key={p.id}
-                  className="product-card"
-                  style={{
-                    border: "1px solid gray",
-                    margin: "10px",
-                    padding: "10px"
-                  }}
+                <button
+                  onClick={() => dispatch(addItem(p))}
+                  disabled={isAdded(p.id)}
                 >
+                  {isAdded(p.id) ? "Added" : "Add to Cart"}
+                </button>
 
-                  {/* ✅ IMG CORRETTO (OBBLIGATORIO) */}
-                  {p.image}
-
-                  <h3>{p.name}</h3>
-                  <p>{p.description}</p>
-                  <p>${p.price}</p>
-
-                  {/* ✅ ADD TO CART COMPLETO */}
-                  <button
-                    onClick={() => dispatch(addItem(p))}
-                    disabled={added}
-                  >
-                    {added ? "Added" : "Add to Cart"}
-                  </button>
-
-                </div>
-              );
-            })}
+              </div>
+            ))}
         </div>
       ))}
     </div>
