@@ -1,0 +1,8 @@
+.landing {
+  height: 100vh;
+  background-image: url("https://images.unsplash.com/photo-plant");
+  background-size: cover;
+  color: white;
+  text-align: center;
+  padding-top: 100px;
+}
