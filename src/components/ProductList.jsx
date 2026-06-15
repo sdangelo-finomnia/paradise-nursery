@@ -2,12 +2,48 @@ import { useDispatch, useSelector } from "react-redux";
 import { addItem } from "../redux/CartSlice";
 
 const plants = [
-  { id: 1, name: "Aloe Vera", price: 10, category: "Medicinal" },
-  { id: 2, name: "Lavender", price: 12, category: "Aromatic" },
-  { id: 3, name: "Snake Plant", price: 20, category: "Air Purifying" },
-  { id: 4, name: "Peace Lily", price: 18, category: "Air Purifying" },
-  { id: 5, name: "Mint", price: 8, category: "Aromatic" },
-  { id: 6, name: "Bonsai", price: 30, category: "Decorative" }
+  {
+    id: 1,
+    name: "Aloe Vera",
+    price: 10,
+    category: "Medicinal",
+    image: <img src="https://source.unsplash.com/100x100/?aloe" />
+  },
+  {
+    id: 2,
+    name: "Lavender",
+    price: 12,
+    category: "Aromatic",
+    image: <img src="https://source.unsplash.com/100x100/?lavender" />
+  },
+  {
+    id: 3,
+    name: "Snake Plant",
+    price: 20,
+    category: "Air Purifying",
+    image: <img src="https://source.unsplash.com/100x100/?snakeplant" />
+  },
+  {
+    id: 4,
+    name: "Peace Lily",
+    price: 18,
+    category: "Air Purifying",
+    image: <img src="https://source.unsplash.com/100x100/?lily" />
+  },
+  {
+    id: 5,
+    name: "Mint",
+    price: 8,
+    category: "Aromatic",
+    image: <img src="https://source.unsplash.com/100x100/?mint" />
+  },
+  {
+    id: 6,
+    name: "Bonsai",
+    price: 30,
+    category: "Decorative",
+    image: <img src="https://source.unsplash.com/100x100/?bonsai" />
+  }
 ];
 
 export default function ProductList() {
@@ -16,25 +52,13 @@ export default function ProductList() {
 
   const isAdded = id => cart.find(i => i.id === id);
 
+  const categories = [...new Set(plants.map(p => p.category))];
+
   return (
     <div>
-      <h2>Our Plants</h2>
+      <h1>Our Plants</h1>
 
-      {plants.map(p => (
-        <div key={p.id}>
-          <h3>{p.name}</h3>
-          <p>{p.category}</p>
-          <p>${p.price}</p>
+      {categories.map(cat => (
+        <div key={cat}>
+          <h2>{cat}</h2>
 
-          <button
-            onClick={() => dispatch(addItem(p))}
-            disabled={isAdded(p.id)}
-          >
-            {isAdded(p.id) ? "Added" : "Add to Cart"}
-          </button>
-        </div>
-      ))}
-    </div>
-  );
-}
-``
