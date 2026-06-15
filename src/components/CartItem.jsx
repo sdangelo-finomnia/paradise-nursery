@@ -6,23 +6,24 @@ export default function CartItem() {
   const { items } = useSelector(state => state.cart);
   const dispatch = useDispatch();
 
-  const total = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  const totalItems = items.reduce((acc, i) => acc + i.quantity, 0);
+  const totalPrice = items.reduce((acc, i) => acc + i.price * i.quantity, 0);
 
   return (
     <div>
-      <h2>Shopping Cart</h2>
+      <h1>Shopping Cart</h1>
 
       {items.map(item => (
         <div key={item.id} style={{ border: "1px solid gray", margin: "10px", padding: "10px" }}>
           
-          {/* ✅ IMMAGINE */}
-          <img src={item.image} alt={item.name} width="100" />
+          {/* ✅ immagine */}
+          {item.image}
 
-          <h3>{item.name}</h3>
+          <h2>{item.name}</h2>
           <p>Price: ${item.price}</p>
           <p>Quantity: {item.quantity}</p>
 
-          {/* ✅ BOTTONI */}
+          {/* ✅ bottoni quantità */}
           <button onClick={() => dispatch(updateQuantity({ id: item.id, amount: 1 }))}>
             +
           </button>
@@ -35,16 +36,16 @@ export default function CartItem() {
             Remove
           </button>
 
-          {/* ✅ SUBTOTALE */}
+          {/* ✅ subtotale */}
           <p>Subtotal: ${item.price * item.quantity}</p>
         </div>
       ))}
 
-      {/* ✅ TOTALE */}
-      <h3>Total Items: {items.reduce((acc, i) => acc + i.quantity, 0)}</h3>
-      <h3>Total Price: ${total}</h3>
+      {/* ✅ totali */}
+      <h2>Total Items: {totalItems}</h2>
+      <h2>Total Price: ${totalPrice}</h2>
 
-      {/* ✅ BOTTONI FINALI */}
+      {/* ✅ bottoni finali */}
       <button onClick={() => alert("Coming Soon")}>
         Checkout
       </button>
@@ -52,8 +53,6 @@ export default function CartItem() {
       <Link to="/products">
         <button>Continue Shopping</button>
       </Link>
-
     </div>
   );
 }
-``
