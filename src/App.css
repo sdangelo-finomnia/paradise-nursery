@@ -4,4 +4,22 @@
   background-size: cover;
   text-align: center;
   color: white;
+  padding: 20px; /* Aggiunto padding */
+  position: relative; /* Per posizionare il filtro */
+}
+
+.landing::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5); /* Filtro scuro per migliorare la leggibilità */
+  z-index: 0; /* Invia il filtro dietro il testo */
+}
+
+.landing h1 {
+  position: relative; /* Per il testo sopra il filtro */
+  z-index: 1;
 }
