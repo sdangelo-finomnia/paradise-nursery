@@ -12,7 +12,7 @@ const cartSlice = createSlice({
     addItem: (state, action) => {
       const existing = state.items.find(i => i.id === action.payload.id);
       if (existing) {
-        existing.quantity++;
+        existing.quantity += 1;
       } else {
         state.items.push({ ...action.payload, quantity: 1 });
       }
@@ -37,5 +37,6 @@ const cartSlice = createSlice({
 
   }
 });
+
 export const { addItem, removeItem, updateQuantity } = cartSlice.actions;
 export default cartSlice.reducer;
