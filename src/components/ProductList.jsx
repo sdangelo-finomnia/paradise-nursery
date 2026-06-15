@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { addItem } from "../redux/CartSlice";
+import { Link } from "react-router-dom";
 
 const plants = [
   {
@@ -50,12 +51,21 @@ export default function ProductList() {
   const dispatch = useDispatch();
   const cart = useSelector(state => state.cart.items);
 
+  const count = cart.reduce((acc, i) => acc + i.quantity, 0);
   const isAdded = id => cart.find(i => i.id === id);
 
   const categories = [...new Set(plants.map(p => p.category))];
 
   return (
     <div>
+
+      {/* ✅ NAVBAR */}
+      <nav>
+        <Link to="/">Home</Link> | 
+        <Link to="/products">Plants</Link> | 
+        <Link to="/cart">Cart ({count})</Link>
+      </nav>
+
       <h1>Our Plants</h1>
 
       {categories.map(cat => (
@@ -67,6 +77,7 @@ export default function ProductList() {
             .map(p => (
               <div key={p.id} style={{ border: "1px solid gray", margin: "10px", padding: "10px" }}>
                 
+                {/* ✅ IMMAGINE CORRETTA */}
                 <img src={p.image} alt={p.name} />
 
                 <h3>{p.name}</h3>
