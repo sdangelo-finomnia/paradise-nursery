@@ -3,7 +3,7 @@ export default function AboutUs() {
     <div>
       <h1>Paradise Nursery</h1>
       <p>
-        We bring nature closer to your home with beautiful indoor plants.
+        Paradise Nursery provides the best indoor plants to make your home fresh and beautiful.
       </p>
     </div>
   );
