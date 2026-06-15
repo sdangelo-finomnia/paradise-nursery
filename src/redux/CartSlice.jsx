@@ -9,61 +9,37 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
 
-    // ✅ ADD ITEM (gestione duplicati chiara)
-    addItem: (state, action) => {
-      const newItem = action.payload;
+addItem: (state, action) => {
+  console.log("Aggiungendo articolo:", action.payload); // Log dell'articolo
+  const existing = state.items.find(i => i.id === action.payload.id);
+  if (existing) {
+    existing.quantity++;
+  } else {
+    state.items.push({ ...action.payload, quantity: 1 });
+  }
+},
 
-      const existingItem = state.items.find(
-        (item) => item.id === newItem.id
-      );
-
-      if (existingItem) {
-        existingItem.quantity = existingItem.quantity + 1;
-      } else {
-        state.items.push({
-          ...newItem,
-          quantity: 1
-        });
-      }
-    },
-
-    // ✅ REMOVE ITEM (chiaro e diretto)
     removeItem: (state, action) => {
-      const id = action.payload;
-
-      state.items = state.items.filter(
-        (item) => item.id !== id
-      );
+      state.items = state.items.filter(i => i.id !== action.payload); // Rimuovi articolo
     },
 
-    // ✅ UPDATE QUANTITY (SUPER IMPORTANTE)
     updateQuantity: (state, action) => {
-      const id = action.payload.id;
-      const amount = Number(action.payload.amount);
+      const { id, amount } = action.payload;
+      const item = state.items.find(i => i.id === id);
 
-      // ✅ sicurezza (evita undefined/null)
-      if (!id || isNaN(amount)) return;
+      if (item) {
+        item.quantity += amount;
 
-      const item = state.items.find(
-        (item) => item.id === id
-      );
-
-      if (!item) return;
-
-      // ✅ aggiornamento quantità
-      item.quantity = item.quantity + amount;
-
-      // ✅ gestione quantità <= 0 → rimozione
-      if (item.quantity <= 0) {
-        state.items = state.items.filter(
-          (i) => i.id !== id
-        );
+        // Controlla se la quantità è zero o negativa
+        if (item.quantity <= 0) {
+          state.items = state.items.filter(i => i.id !== id); // Rimuovi articolo se quantità è zero
+        }
       }
     }
 
   }
 });
 
+// Esporta le azioni e il reducer
 export const { addItem, removeItem, updateQuantity } = cartSlice.actions;
-
 export default cartSlice.reducer;
